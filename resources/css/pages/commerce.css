@@ -1,0 +1,149 @@
+/* Cart / Checkout / Orders — page-specific layout only. Reusable pieces
+   (cart-item, cart-summary, order-card) live in components/commerce.css. */
+
+.cart-layout {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: var(--space-5);
+    align-items: start;
+}
+
+.cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.cart-clear-form {
+    align-self: flex-end;
+}
+
+.cart-clear-link {
+    font-size: var(--text-small);
+    color: var(--color-text-muted);
+}
+
+.cart-clear-link:hover {
+    color: var(--color-error);
+}
+
+.checkout-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.checkout-section-title {
+    font-size: var(--text-h3);
+    color: var(--color-black);
+    margin-top: var(--space-3);
+}
+
+.order-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.order-detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+}
+
+.order-detail-date {
+    color: var(--color-text-muted);
+    font-size: var(--text-small);
+}
+
+.order-detail-meta {
+    color: var(--color-text-muted);
+    font-size: var(--text-small);
+    margin-top: var(--space-2);
+}
+
+.order-detail-items {
+    display: flex;
+    flex-direction: column;
+}
+
+.order-detail-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    padding-block: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.order-detail-item-name {
+    flex: 1;
+}
+
+/* Order tracking stepper */
+.order-tracking {
+    display: flex;
+    margin-bottom: var(--space-4);
+}
+
+.order-tracking-step {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    color: var(--color-text-muted);
+}
+
+.order-tracking-step::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: -50%;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-border);
+    z-index: 0;
+}
+
+.order-tracking-step:first-child::before {
+    content: none;
+}
+
+.order-tracking-dot {
+    display: block;
+    width: 14px;
+    height: 14px;
+    margin: 0 auto 0.4rem;
+    border-radius: 50%;
+    background-color: var(--color-border);
+    position: relative;
+    z-index: 1;
+}
+
+.order-tracking-label {
+    font-size: var(--text-small);
+}
+
+.order-tracking-step.is-complete {
+    color: var(--color-black);
+}
+
+.order-tracking-step.is-complete .order-tracking-dot {
+    background-color: var(--color-gold);
+}
+
+.order-tracking-step.is-complete::before {
+    background-color: var(--color-gold);
+}
+
+.order-fulfillment-form select {
+    width: auto;
+    padding: 0.4rem 0.6rem;
+}
+
+@media (max-width: 900px) {
+    .cart-layout {
+        grid-template-columns: 1fr;
+    }
+}

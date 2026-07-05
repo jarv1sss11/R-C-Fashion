@@ -1,0 +1,302 @@
+/* Genuinely reusable catalogue components: product-card, product-grid,
+   product-gallery, filter-sidebar, search-bar, price-badge, rating-stars,
+   breadcrumb, wishlist-toggle. Page-specific layout lives in pages/catalog.css. */
+
+/* Breadcrumb */
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: var(--text-small);
+    margin-bottom: var(--space-3);
+}
+
+.breadcrumb-link {
+    color: var(--color-text-muted);
+    transition: color var(--duration-button) var(--ease-standard);
+}
+
+.breadcrumb-link:hover {
+    color: var(--color-gold);
+}
+
+.breadcrumb-separator {
+    color: var(--color-border);
+}
+
+.breadcrumb-current {
+    color: var(--color-black);
+    font-weight: 500;
+}
+
+/* Price badge */
+.price-badge {
+    font-weight: 600;
+    color: var(--color-black);
+}
+
+/* Rating stars */
+.rating-stars {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.15rem;
+    font-size: var(--text-small);
+}
+
+.rating-stars--empty {
+    color: var(--color-text-muted);
+}
+
+.rating-star {
+    color: var(--color-border);
+}
+
+.rating-star.is-filled {
+    color: var(--color-gold);
+}
+
+.rating-stars-count {
+    margin-left: 0.25rem;
+    color: var(--color-text-muted);
+}
+
+/* Search bar */
+.search-bar {
+    display: flex;
+    gap: var(--space-1);
+    max-width: 480px;
+    margin-block: var(--space-3);
+}
+
+.search-bar-input {
+    flex: 1;
+    padding: 0.7rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-white);
+    font-size: var(--text-body);
+    font-family: var(--font-body);
+}
+
+.search-bar-input:focus {
+    outline: none;
+    border-color: var(--color-gold);
+    box-shadow: 0 0 0 3px rgba(200, 164, 77, 0.15);
+}
+
+.search-bar-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    background-color: var(--color-black);
+    border: none;
+    border-radius: var(--radius-sm);
+    color: var(--color-white);
+    transition: background-color var(--duration-button) var(--ease-standard);
+}
+
+.search-bar-submit:hover {
+    background-color: var(--color-gold);
+}
+
+.search-bar-icon {
+    width: 1.1rem;
+    height: 1.1rem;
+}
+
+/* Product grid + card */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-3);
+}
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    transition: transform var(--duration-card) var(--ease-standard),
+                box-shadow var(--duration-card) var(--ease-standard);
+}
+
+.product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lift);
+}
+
+.product-card-image {
+    aspect-ratio: 1;
+    background-color: var(--color-beige);
+}
+
+.product-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-card-image--empty {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--color-beige), var(--color-border));
+}
+
+.product-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: var(--space-2);
+}
+
+.product-card-vendor {
+    font-size: var(--text-micro);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-text-muted);
+}
+
+.product-card-name {
+    font-weight: 600;
+    color: var(--color-black);
+}
+
+/* Product gallery */
+.product-gallery-main {
+    aspect-ratio: 1;
+    background-color: var(--color-beige);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.product-gallery-main img,
+.product-gallery-main--empty {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-gallery-main--empty {
+    background: linear-gradient(135deg, var(--color-beige), var(--color-border));
+}
+
+.product-gallery-thumbs {
+    display: flex;
+    gap: var(--space-1);
+    margin-top: var(--space-2);
+}
+
+.product-gallery-thumb {
+    width: 64px;
+    height: 64px;
+    padding: 0;
+    border: 2px solid transparent;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: none;
+    transition: border-color var(--duration-button) var(--ease-standard);
+}
+
+.product-gallery-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-gallery-thumb.is-active {
+    border-color: var(--color-gold);
+}
+
+/* Filter sidebar */
+.filter-sidebar {
+    width: 240px;
+    flex-shrink: 0;
+}
+
+.filter-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.filter-group-title {
+    font-size: var(--text-small);
+    font-weight: 600;
+    color: var(--color-black);
+}
+
+.filter-price-row {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.filter-clear-link {
+    text-align: center;
+    font-size: var(--text-small);
+    color: var(--color-text-muted);
+}
+
+.filter-clear-link:hover {
+    color: var(--color-gold);
+}
+
+/* Wishlist toggle */
+.wishlist-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-white);
+    font-size: var(--text-small);
+    font-weight: 500;
+    color: var(--color-black);
+    transition: border-color var(--duration-button) var(--ease-standard),
+                color var(--duration-button) var(--ease-standard);
+}
+
+.wishlist-toggle:hover {
+    border-color: var(--color-gold);
+    color: var(--color-gold);
+}
+
+.wishlist-toggle-icon {
+    width: 1.1rem;
+    height: 1.1rem;
+}
+
+.wishlist-toggle.is-active {
+    border-color: var(--color-gold);
+    color: var(--color-gold);
+}
+
+.wishlist-toggle.is-active .wishlist-toggle-icon {
+    fill: currentColor;
+}
+
+@media (max-width: 900px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 560px) {
+    .product-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-2);
+    }
+}

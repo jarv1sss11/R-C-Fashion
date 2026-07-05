@@ -1,0 +1,126 @@
+.registration-inner {
+    max-width: 520px;
+}
+
+/* Role cards */
+.role-card-group {
+    display: flex;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+}
+
+.role-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-1);
+    padding: var(--space-4) var(--space-3);
+    border-radius: var(--radius-md);
+    border: 1px solid transparent;
+    box-shadow: var(--shadow-soft);
+    transition: transform var(--duration-card) var(--ease-standard),
+                box-shadow var(--duration-card) var(--ease-standard),
+                border-color var(--duration-card) var(--ease-standard);
+}
+
+.role-card:hover {
+    transform: translateY(-2px);
+}
+
+.role-card.is-active {
+    border-color: var(--color-gold);
+    box-shadow: var(--shadow-lift);
+}
+
+.role-card--light {
+    background-color: var(--color-white);
+    color: var(--color-black);
+}
+
+.role-card--light .role-card-icon {
+    color: var(--color-gold);
+}
+
+.role-card--light .role-card-sublabel {
+    color: var(--color-text-muted);
+}
+
+.role-card--dark {
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
+
+.role-card--dark .role-card-icon {
+    color: var(--color-gold);
+}
+
+.role-card--dark .role-card-sublabel {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.role-card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.role-card-icon svg {
+    width: 1.75rem;
+    height: 1.75rem;
+}
+
+.role-card-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-h3);
+    font-weight: 600;
+}
+
+.role-card-sublabel {
+    font-size: var(--text-small);
+}
+
+/* Accordion — CSS grid 0fr/1fr technique, no JS height measurement needed */
+.accordion-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows var(--duration-accordion) var(--ease-standard),
+                opacity var(--duration-accordion) var(--ease-standard);
+}
+
+.accordion-panel.is-open {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    margin-top: var(--space-4);
+}
+
+.accordion-panel-inner {
+    overflow: hidden;
+    min-height: 0;
+}
+
+/* Sign-in prompt */
+.registration-signin {
+    text-align: center;
+    margin-top: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+
+.registration-signin-label {
+    font-size: var(--text-micro);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+}
+
+@media (max-width: 560px) {
+    .role-card-group {
+        flex-direction: column;
+    }
+}

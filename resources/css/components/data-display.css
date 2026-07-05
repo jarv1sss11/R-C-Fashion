@@ -1,0 +1,199 @@
+/* Genuinely reusable data-display components: status-badge, empty-state, pagination, product-table. */
+
+/* Status badge */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    font-size: var(--text-micro);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+}
+
+.status-badge--success {
+    color: #1E5B33;
+    background-color: #DCEEE1;
+}
+
+.status-badge--neutral {
+    color: var(--color-black);
+    background-color: var(--color-beige);
+}
+
+.status-badge--muted {
+    color: var(--color-text-muted);
+    background-color: var(--color-ivory);
+    border: 1px solid var(--color-border);
+}
+
+.status-badge--danger {
+    color: var(--color-error);
+    background-color: #F7E1DF;
+}
+
+.status-badge--warning {
+    color: #8A5A00;
+    background-color: #F5E6C8;
+}
+
+/* Empty state */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-1);
+    margin-top: var(--space-4);
+    padding: var(--space-4);
+    background-color: var(--color-white);
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-sm);
+}
+
+.empty-state-title {
+    font-weight: 600;
+    color: var(--color-black);
+}
+
+.empty-state-message {
+    font-size: var(--text-small);
+    color: var(--color-text-muted);
+}
+
+.empty-state-action {
+    margin-top: var(--space-2);
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+}
+
+.pagination-link {
+    font-size: var(--text-small);
+    font-weight: 500;
+    color: var(--color-gold);
+}
+
+.pagination-link:hover {
+    color: var(--color-black);
+    text-decoration: underline;
+}
+
+.pagination-link--disabled {
+    color: var(--color-border);
+    pointer-events: none;
+}
+
+.pagination-status {
+    font-size: var(--text-small);
+    color: var(--color-text-muted);
+}
+
+/* Product table */
+.product-table {
+    width: 100%;
+    margin-top: var(--space-4);
+    border-collapse: collapse;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+}
+
+.product-table th,
+.product-table td {
+    padding: 0.75rem var(--space-2);
+    text-align: left;
+    font-size: var(--text-small);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.product-table th {
+    font-weight: 600;
+    color: var(--color-text-muted);
+    background-color: var(--color-beige);
+}
+
+.product-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.product-table-name-cell {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.product-table-thumb {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+}
+
+.product-table-thumb--empty {
+    background-color: var(--color-beige);
+}
+
+.product-table-actions-col {
+    white-space: nowrap;
+}
+
+.product-table-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.product-table-action {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: var(--text-small);
+    font-weight: 500;
+    color: var(--color-gold);
+}
+
+.product-table-action:hover {
+    color: var(--color-black);
+    text-decoration: underline;
+}
+
+.product-table-action--danger {
+    color: var(--color-text-muted);
+}
+
+.product-table-action--danger:hover {
+    color: var(--color-error);
+}
+
+@media (max-width: 700px) {
+    .product-table thead {
+        display: none;
+    }
+
+    .product-table,
+    .product-table tbody,
+    .product-table tr,
+    .product-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .product-table tr {
+        padding: var(--space-2);
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .product-table td {
+        border-bottom: none;
+        padding: 0.25rem 0;
+    }
+}

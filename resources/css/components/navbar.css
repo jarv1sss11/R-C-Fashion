@@ -1,0 +1,150 @@
+.navbar {
+    background-color: var(--color-ivory);
+    border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+.navbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: var(--space-3);
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-wordmark {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.25rem;
+    letter-spacing: 0.02em;
+    color: var(--color-black);
+}
+
+.navbar-menu {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.navbar-divider {
+    width: 1px;
+    height: 1.25rem;
+    background-color: var(--color-border);
+}
+
+.nav-link {
+    font-size: var(--text-small);
+    font-weight: 500;
+    color: var(--color-text-muted);
+    padding-bottom: 4px;
+    border-bottom: 1px solid transparent;
+    transition: color var(--duration-button) var(--ease-standard),
+                border-color var(--duration-button) var(--ease-standard);
+}
+
+.nav-link:hover {
+    color: var(--color-gold);
+}
+
+.nav-link--active {
+    color: var(--color-black);
+    font-weight: 600;
+    border-bottom-color: var(--color-black);
+}
+
+.navbar-user {
+    font-size: var(--text-small);
+    font-weight: 600;
+    color: var(--color-black);
+    transition: color var(--duration-button) var(--ease-standard);
+}
+
+.navbar-user:hover {
+    color: var(--color-gold);
+}
+
+.navbar-logout-form {
+    display: inline-flex;
+}
+
+.navbar-logout {
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.navbar-back {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-size: var(--text-small);
+    color: var(--color-text-muted);
+    transition: color var(--duration-button) var(--ease-standard);
+}
+
+.navbar-back:hover {
+    color: var(--color-gold);
+}
+
+.navbar-back-icon {
+    width: 1rem;
+    height: 1rem;
+    transform: rotate(180deg);
+}
+
+.navbar-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+}
+
+.navbar-toggle span {
+    width: 22px;
+    height: 2px;
+    background-color: var(--color-black);
+    transition: transform var(--duration-button) var(--ease-standard),
+                opacity var(--duration-button) var(--ease-standard);
+}
+
+@media (max-width: 900px) {
+    .navbar-toggle {
+        display: flex;
+    }
+
+    .navbar-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-2);
+        background-color: var(--color-ivory);
+        border-bottom: 1px solid var(--color-border);
+        padding: var(--space-3) var(--space-3) var(--space-4);
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height var(--duration-accordion) var(--ease-standard),
+                    opacity var(--duration-accordion) var(--ease-standard);
+    }
+
+    .navbar-menu.is-open {
+        max-height: 24rem;
+        opacity: 1;
+        box-shadow: var(--shadow-lift);
+    }
+
+    .navbar-divider {
+        display: none;
+    }
+}

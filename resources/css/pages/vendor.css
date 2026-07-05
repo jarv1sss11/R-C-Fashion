@@ -1,0 +1,220 @@
+/* Vendor Module — page-specific layout, kept separate from account.css per project convention. */
+
+.vendor {
+    background-color: var(--color-ivory);
+    min-height: calc(100vh - 80px);
+}
+
+.vendor-inner {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--space-5);
+    padding-block: var(--space-6) var(--space-7);
+}
+
+.vendor-content {
+    min-width: 0;
+}
+
+.vendor-heading-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+}
+
+.vendor-heading {
+    font-size: var(--text-h2);
+    color: var(--color-black);
+}
+
+.vendor-subheading {
+    font-size: var(--text-small);
+    color: var(--color-text-muted);
+    margin-top: 0.25rem;
+}
+
+.vendor-subheading--section {
+    font-size: var(--text-h3);
+    color: var(--color-black);
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-1);
+}
+
+.vendor-form {
+    max-width: 480px;
+    margin-top: var(--space-4);
+}
+
+/* Sidebar */
+.vendor-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+.vendor-sidebar-link {
+    padding: 0.6rem var(--space-2);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-small);
+    font-weight: 500;
+    color: var(--color-text-muted);
+    transition: color var(--duration-button) var(--ease-standard),
+                background-color var(--duration-button) var(--ease-standard);
+}
+
+.vendor-sidebar-link:hover {
+    color: var(--color-black);
+    background-color: var(--color-beige);
+}
+
+.vendor-sidebar-link.is-active {
+    color: var(--color-black);
+    font-weight: 600;
+    background-color: var(--color-white);
+    box-shadow: var(--shadow-soft);
+}
+
+/* Stat grid */
+.vendor-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+}
+
+.vendor-stat-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: var(--space-3);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+}
+
+.vendor-stat-card--muted {
+    background-color: var(--color-beige);
+}
+
+.vendor-stat-value {
+    font-family: var(--font-heading);
+    font-size: var(--text-h2);
+    color: var(--color-black);
+}
+
+.vendor-stat-label {
+    font-size: var(--text-small);
+    color: var(--color-text-muted);
+}
+
+/* Quick actions */
+.vendor-quick-actions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+}
+
+.vendor-quick-action {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: var(--space-3);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    transition: transform var(--duration-card) var(--ease-standard),
+                box-shadow var(--duration-card) var(--ease-standard);
+}
+
+.vendor-quick-action:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lift);
+}
+
+.vendor-quick-action-title {
+    font-weight: 600;
+    color: var(--color-black);
+}
+
+.vendor-quick-action-desc {
+    font-size: var(--text-small);
+    color: var(--color-text-muted);
+}
+
+/* Product images (edit page) */
+.vendor-product-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+}
+
+.vendor-product-image {
+    position: relative;
+    width: 96px;
+}
+
+.vendor-product-image img {
+    width: 96px;
+    height: 96px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+}
+
+.vendor-product-image-remove {
+    width: 100%;
+    margin-top: 0.35rem;
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: var(--text-micro);
+    color: var(--color-text-muted);
+}
+
+.vendor-product-image-remove:hover {
+    color: var(--color-error);
+}
+
+.vendor-logo-preview {
+    width: 96px;
+    height: 96px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    margin-bottom: var(--space-3);
+}
+
+.vendor-banner-preview {
+    width: 100%;
+    max-height: 180px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    margin-bottom: var(--space-3);
+}
+
+@media (max-width: 900px) {
+    .vendor-inner {
+        grid-template-columns: 1fr;
+    }
+
+    .vendor-sidebar {
+        flex-direction: row;
+        overflow-x: auto;
+    }
+
+    .vendor-stat-grid,
+    .vendor-quick-actions {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 560px) {
+    .vendor-stat-grid,
+    .vendor-quick-actions {
+        grid-template-columns: 1fr;
+    }
+}
