@@ -19,7 +19,7 @@ class CheckoutRequest extends FormRequest
             'shipping_city' => ['required', 'string', 'max:255'],
             'shipping_phone' => ['required', 'string', 'max:20'],
             'delivery_option' => ['required', 'string', 'in:standard,express'],
-            'payment_method' => ['required', 'string', 'in:cash_on_delivery,mock_card'],
+            'payment_method' => ['required', 'string', 'in:cash_on_delivery,mock_card,mpesa'],
         ];
     }
 }

@@ -9,6 +9,17 @@
 
             <x-search-bar :term="$term" />
 
+            @if ($didYouMean)
+                <p class="search-did-you-mean">
+                    Did you mean:
+                    <a href="{{ route('search.index', ['q' => $didYouMean]) }}" class="search-did-you-mean-link">{{ $didYouMean }}</a>?
+                </p>
+            @endif
+
+            @if ($fallbackNotice)
+                <p class="search-fallback-notice">{{ $fallbackNotice }}</p>
+            @endif
+
             <x-flash-status />
 
             @if ($products === null)

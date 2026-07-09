@@ -8,6 +8,7 @@ import { initFilterAutoSubmit } from './filters';
 import { initFulfillmentAutoSubmit } from './orders';
 import { initBulkProductActions } from './admin';
 import { initNewsletterForm } from './newsletter';
+import { initSearchAutocomplete, initCompactSearchToggle } from './search';
 
 document.addEventListener('DOMContentLoaded', () => {
     initNavbarToggle();
@@ -19,4 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initFulfillmentAutoSubmit();
     initBulkProductActions();
     initNewsletterForm();
+    initSearchAutocomplete();
+    initCompactSearchToggle();
 });

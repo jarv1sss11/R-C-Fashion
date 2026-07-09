@@ -148,3 +148,106 @@
         display: none;
     }
 }
+
+/* ── Notification Bell ──────────────────────────────────────────── */
+
+.navbar-bell {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-muted, #666);
+    padding: 4px;
+    transition: color 0.15s;
+    text-decoration: none;
+}
+
+.navbar-bell:hover {
+    color: var(--color-gold, #C8A44D);
+}
+
+.navbar-bell svg {
+    display: block;
+}
+
+.navbar-bell-badge {
+    position: absolute;
+    top: -2px;
+    right: -4px;
+    min-width: 16px;
+    height: 16px;
+    border-radius: 9999px;
+    background: var(--color-error, #B3261E);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    line-height: 16px;
+    text-align: center;
+    padding: 0 3px;
+}
+
+/* ── Compact nav search (icon that expands into an input) ─────────── */
+
+.search-bar-wrapper--compact {
+    position: relative;
+    display: flex;
+    align-items: center;
+    max-width: none;
+    margin-block: 0;
+}
+
+.navbar-search-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: 4px;
+    color: var(--color-text-muted, #666);
+    transition: color 0.15s;
+}
+
+.navbar-search-toggle:hover {
+    color: var(--color-gold, #C8A44D);
+}
+
+.navbar-search-toggle-icon {
+    width: 1.15rem;
+    height: 1.15rem;
+    display: block;
+}
+
+.search-bar-wrapper--compact .search-bar {
+    width: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: width var(--duration-button, 0.2s) var(--ease-standard, ease),
+                opacity var(--duration-button, 0.2s) var(--ease-standard, ease);
+}
+
+.search-bar-wrapper--compact.is-expanded .search-bar {
+    width: min(220px, 45vw);
+    opacity: 1;
+    margin-left: var(--space-2, 0.5rem);
+}
+
+.search-bar-wrapper--compact.is-expanded .navbar-search-toggle {
+    display: none;
+}
+
+.search-bar-wrapper--compact .search-suggestions {
+    left: auto;
+    right: 0;
+    width: min(280px, 90vw);
+}
+
+@media (max-width: 900px) {
+    .search-bar-wrapper--compact {
+        width: 100%;
+    }
+
+    .search-bar-wrapper--compact.is-expanded .search-bar {
+        width: 100%;
+        max-width: none;
+    }
+}

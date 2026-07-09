@@ -2,6 +2,8 @@
 
 namespace App\Services\Admin\Dashboard;
 
+use App\Models\DeliveryAssignment;
+use App\Models\Payment;
 use App\Models\Product;
 use App\Models\VendorProfile;
 
@@ -29,6 +31,8 @@ class DashboardService
             'recommendations' => $this->recommendations->data(),
             'health' => $this->health->data(),
             'product_count' => Product::count(),
+            'pending_cod_payments' => Payment::where('payment_method', 'cash_on_delivery')->where('status', 'pending')->count(),
+            'active_deliveries' => DeliveryAssignment::whereIn('status', ['assigned', 'picked_up'])->count(),
         ];
     }
 
@@ -47,6 +51,8 @@ class DashboardService
             'out_of_stock' => $outOfStock,
             'suspended_vendors' => VendorProfile::whereHas('user', fn ($q) => $q->where('status', 'suspended'))->count(),
             'failed_recommendation_evaluations' => $summary['recommendations']['failed_evaluations'],
+            'pending_cod_payments' => $summary['pending_cod_payments'],
+            'active_deliveries' => $summary['active_deliveries'],
         ], fn ($count) => $count > 0);
     }
 }

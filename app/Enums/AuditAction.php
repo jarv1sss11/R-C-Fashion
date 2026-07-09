@@ -31,6 +31,14 @@ enum AuditAction: string
 
     case SettingsUpdated = 'settings_updated';
 
+    case OrderCreated = 'order_created';
+    case PaymentConfirmed = 'payment_confirmed';
+    case RiderCreated = 'rider_created';
+    case RiderUpdated = 'rider_updated';
+    case RiderAssigned = 'rider_assigned';
+    case DeliveryStatusUpdated = 'delivery_status_updated';
+    case DeliveryConfirmedByBuyer = 'delivery_confirmed_by_buyer';
+
     public function label(): string
     {
         return match ($this) {
@@ -51,6 +59,13 @@ enum AuditAction: string
             self::CategoryArchived => 'Category Archived',
             self::CategoryRestored => 'Category Restored',
             self::SettingsUpdated => 'Settings Updated',
+            self::OrderCreated => 'Order Created',
+            self::PaymentConfirmed => 'Payment Confirmed',
+            self::RiderCreated => 'Rider Created',
+            self::RiderUpdated => 'Rider Updated',
+            self::RiderAssigned => 'Rider Assigned',
+            self::DeliveryStatusUpdated => 'Delivery Status Updated',
+            self::DeliveryConfirmedByBuyer => 'Delivery Confirmed by Buyer',
         };
     }
 }

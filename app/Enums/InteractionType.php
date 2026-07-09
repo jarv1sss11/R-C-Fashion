@@ -40,9 +40,15 @@ enum InteractionType: string
      * Whether this interaction type represents a positive (product-affirming)
      * signal — used by the evaluator to build "relevant" ground-truth sets
      * and by Content-Based/Collaborative filtering to build preference profiles.
+     *
+     * SearchQuery returns false: a search is user intent ("I am looking for X"),
+     * not engagement with a specific product.  Its product_id is also null, so
+     * it is already excluded from every product-set operation, but returning
+     * false here ensures the type system expresses that truth explicitly rather
+     * than relying on a nullable column as a side-channel guard.
      */
     public function isPositiveSignal(): bool
     {
-        return ! in_array($this, [self::WishlistRemoved, self::CartRemoved], true);
+        return ! in_array($this, [self::WishlistRemoved, self::CartRemoved, self::SearchQuery], true);
     }
 }

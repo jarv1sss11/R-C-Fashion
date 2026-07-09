@@ -3,6 +3,10 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Admin\AuditLogController;
+use App\Http\Controllers\Admin\DeliveryController as AdminDeliveryController;
+use App\Http\Controllers\Admin\PaymentController as AdminPaymentController;
+use App\Http\Controllers\Admin\RiderController as AdminRiderController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\HealthController as AdminHealthController;
@@ -78,6 +82,8 @@ Route::middleware(['auth', 'active'])->group(function () {
 
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+    Route::get('/orders/{order}/receipt', [OrderController::class, 'receipt'])->name('orders.receipt');
+    Route::post('/orders/{order}/confirm-received', [OrderController::class, 'confirmReceived'])->name('orders.confirm-received');
 
     // Product Catalogue (Step 8) — customer-facing browsing, distinct from
     // the Vendor Module's management controllers.
@@ -85,10 +91,15 @@ Route::middleware(['auth', 'active'])->group(function () {
     Route::get('/products/{product}', [ProductCatalogueController::class, 'show'])->name('products.show');
     Route::get('/categories/{category:slug}', [CategoryController::class, 'show'])->name('categories.show');
     Route::get('/search', [SearchController::class, 'index'])->name('search.index');
+    Route::get('/search/suggestions', [SearchController::class, 'suggestions'])->name('search.suggestions');
     Route::get('/vendors/{vendor:store_slug}', [VendorController::class, 'show'])->name('vendors.show');
 
     Route::get('/recommendations', [RecommendationController::class, 'index'])->name('recommendations.index');
     Route::get('/recommendations/click/{product}', [RecommendationController::class, 'click'])->name('recommendations.click');
+
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::patch('/notifications/{id}/read', [NotificationController::class, 'markRead'])->name('notifications.read');
+    Route::patch('/notifications/read-all', [NotificationController::class, 'markAllRead'])->name('notifications.read-all');
 });
 
 Route::middleware(['auth', 'vendor'])->prefix('vendor')->name('vendor.')->group(function () {
@@ -149,6 +160,15 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::put('/settings', [AdminSettingsController::class, 'update'])->name('settings.update');
 
     Route::get('/health', [AdminHealthController::class, 'index'])->name('health.index');
+
+    Route::get('/payments', [AdminPaymentController::class, 'index'])->name('payments.index');
+    Route::patch('/payments/{payment}/confirm-cod', [AdminPaymentController::class, 'confirmCod'])->name('payments.confirm-cod');
+
+    Route::resource('riders', AdminRiderController::class)->except(['show']);
+
+    Route::get('/deliveries', [AdminDeliveryController::class, 'index'])->name('deliveries.index');
+    Route::post('/deliveries/{order}/assign', [AdminDeliveryController::class, 'assign'])->name('deliveries.assign');
+    Route::patch('/deliveries/{assignment}/status', [AdminDeliveryController::class, 'updateStatus'])->name('deliveries.status');
 });
 
 // Destination for nav items that don't have a real page yet — shown to

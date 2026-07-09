@@ -6,6 +6,8 @@
         'out_of_stock' => 'Out-of-Stock Products',
         'suspended_vendors' => 'Suspended Vendors',
         'failed_recommendation_evaluations' => 'Failed Recommendation Evaluations',
+        'pending_cod_payments' => 'Pending COD Payments to Confirm',
+        'active_deliveries' => 'Active Deliveries in Progress',
     ];
 
     $healthBadges = ['green' => '🟢', 'yellow' => '🟡', 'red' => '🔴'];
@@ -62,6 +64,14 @@
                         <span class="admin-summary-value">{{ $summary['recommendations']['ctr'] }}%</span>
                         <span class="admin-summary-label">Recommendation CTR</span>
                     </div>
+                    <a href="{{ route('admin.payments.index') }}" class="admin-summary-card admin-summary-card--action">
+                        <span class="admin-summary-value">{{ $summary['pending_cod_payments'] }}</span>
+                        <span class="admin-summary-label">Pending COD Payments</span>
+                    </a>
+                    <a href="{{ route('admin.deliveries.index') }}" class="admin-summary-card admin-summary-card--action">
+                        <span class="admin-summary-value">{{ $summary['active_deliveries'] }}</span>
+                        <span class="admin-summary-label">Active Deliveries</span>
+                    </a>
                 </div>
 
                 <div class="admin-chart-grid">

@@ -26,11 +26,18 @@ class PopularityService
     }
 
     /**
+     * $filters is passed straight through to ProductCatalogueService::query()
+     * (e.g. ['category_id' => ..., 'gender' => ..., 'age_group' => ...]) so a
+     * product-page caller can scope "popular" to the anchor product's own
+     * category/gender/age_group. Defaults to empty/global, unchanged for the
+     * standalone "Recommended For You" page and every other existing caller
+     * — none of them pass this argument today.
+     *
      * @return RecommendationResult[]
      */
-    public function recommend(int $limit = 12, array $excludeProductIds = []): array
+    public function recommend(int $limit = 12, array $excludeProductIds = [], array $filters = []): array
     {
-        $products = $this->catalogue->query()
+        $products = $this->catalogue->query($filters)
             ->when($excludeProductIds, fn ($query) => $query->whereNotIn('products.id', $excludeProductIds))
             ->get();
 

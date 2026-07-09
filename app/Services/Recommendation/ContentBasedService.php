@@ -61,17 +61,36 @@ class ContentBasedService
      * Item-item similarity for "Similar Products" on a product detail page —
      * no user involved, purely product-to-product.
      *
+     * Tier 1: exact product_type match + gender/age_group compatibility.
+     * Tier 2 (only when tier 1 has fewer than 3 candidates): broaden to the
+     * product_type's supertype grouping, still gender/age_group-gated. If
+     * even that is too thin, the result is simply short — never a fallback
+     * to raw department-only (category_id) matching, and never a crossing
+     * into a different age_group/gender to pad the count.
+     *
      * @return RecommendationResult[]
      */
     public function similarProducts(Product $product, int $limit = 6): array
     {
-        $candidates = $this->catalogue->query()
-            ->where('products.id', '!=', $product->id)
-            ->where('products.category_id', $product->category_id)
-            ->get();
+        if (! $product->product_type) {
+            return [];
+        }
+
+        $candidates = $this->candidatesForTypes([$product->product_type], $product);
+
+        if ($candidates->count() < 3) {
+            $siblingTypes = Product::supertypeSiblingTypes($product->product_type);
+
+            if (! empty($siblingTypes)) {
+                $candidates = $this->candidatesForTypes($siblingTypes, $product);
+            }
+        }
 
         $scored = $candidates->map(function (Product $candidate) use ($product) {
-            $score = 0.4; // same category already guaranteed by the query above
+            // Exact product_type match scores higher than a supertype-sibling
+            // match (e.g. heels-for-heels outscores sneakers-for-heels, even
+            // though both cleared the same footwear-supertype tier-2 pool).
+            $score = $candidate->product_type === $product->product_type ? 0.4 : 0.25;
 
             if ($candidate->brand_id && $candidate->brand_id === $product->brand_id) {
                 $score += 0.15;
@@ -96,6 +115,16 @@ class ContentBasedService
         })->sortByDesc(fn (RecommendationResult $result) => $result->score->finalScore);
 
         return $scored->take($limit)->values()->all();
+    }
+
+    private function candidatesForTypes(array $types, Product $product): Collection
+    {
+        return $this->catalogue->query()
+            ->where('products.id', '!=', $product->id)
+            ->whereIn('products.product_type', $types)
+            ->genderCompatible($product->gender)
+            ->ageGroupCompatible($product->age_group)
+            ->get();
     }
 
     /**

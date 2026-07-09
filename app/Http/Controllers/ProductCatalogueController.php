@@ -52,7 +52,7 @@ class ProductCatalogueController extends Controller
         $recentlyViewedIds = $user
             ? $this->recommendationRepository->recentlyViewedProductIds($user->id, 8, $product->id)
             : [];
-        $coViewedIds = $this->recommendationRepository->coViewedProductIds($product->id, 6);
+        $coViewedIds = $this->recommendationRepository->coViewedProductIds($product, 6);
 
         return view('catalog.show', [
             'product' => $product,

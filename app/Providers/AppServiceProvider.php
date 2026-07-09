@@ -4,7 +4,9 @@ namespace App\Providers;
 
 use App\Models\CartItem;
 use App\Models\OrderItem;
+use App\Models\Product;
 use App\Models\VendorProfile;
+use App\Observers\ProductObserver;
 use App\Policies\CartPolicy;
 use App\Policies\OrderPolicy;
 use App\Policies\StorePolicy;
@@ -28,6 +30,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Keep search_index in sync whenever a product is created or updated.
+        Product::observe(ProductObserver::class);
+
         // StorePolicy doesn't follow the {Model}Policy auto-discovery convention
         // (VendorProfile → StorePolicy, not VendorProfilePolicy), so it needs
         // explicit registration.

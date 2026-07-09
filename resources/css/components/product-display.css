@@ -61,11 +61,16 @@
 }
 
 /* Search bar */
+.search-bar-wrapper {
+    position: relative;
+    max-width: 480px;
+    margin-block: var(--space-3);
+}
+
 .search-bar {
     display: flex;
     gap: var(--space-1);
-    max-width: 480px;
-    margin-block: var(--space-3);
+    width: 100%;
 }
 
 .search-bar-input {
@@ -103,6 +108,86 @@
 .search-bar-icon {
     width: 1.1rem;
     height: 1.1rem;
+}
+
+/* Autocomplete dropdown */
+.search-suggestions {
+    position: absolute;
+    top: calc(100% + 2px);
+    left: 0;
+    right: 0;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-lift);
+    z-index: 200;
+    overflow: hidden;
+}
+
+.suggestion-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.65rem 1rem;
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--color-border);
+    text-align: left;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    color: var(--color-black);
+    transition: background-color var(--duration-button) var(--ease-standard);
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.suggestion-item:hover,
+.suggestion-item.is-active {
+    background-color: var(--color-beige);
+}
+
+.suggestion-text {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.suggestion-type {
+    flex-shrink: 0;
+    margin-left: 0.75rem;
+    font-size: var(--text-micro);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+}
+
+/* Did you mean banner */
+.search-did-you-mean {
+    font-size: var(--text-small);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-2);
+}
+
+.search-did-you-mean-link {
+    color: var(--color-gold);
+    font-style: italic;
+    font-weight: 500;
+}
+
+.search-did-you-mean-link:hover {
+    text-decoration: underline;
+}
+
+.search-fallback-notice {
+    font-size: var(--text-small);
+    font-style: italic;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-2);
 }
 
 /* Product grid + card */

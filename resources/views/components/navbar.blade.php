@@ -26,6 +26,8 @@
 
                 <span class="navbar-divider" aria-hidden="true"></span>
 
+                <x-search-bar compact />
+
                 <x-nav-link :href="gated_route(route('cart.index'))" :active="request()->routeIs('cart.*')">Cart ({{ auth()->check() ? cart_count() : 0 }})</x-nav-link>
 
                 @auth
@@ -36,6 +38,13 @@
                     @if (auth()->user()->role === 'admin')
                         <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.*')">Admin</x-nav-link>
                     @endif
+                    @php $unreadCount = auth()->user()->unreadNotifications()->count(); @endphp
+                    <a href="{{ route('notifications.index') }}" class="navbar-bell" aria-label="Notifications">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                        @if($unreadCount > 0)
+                        <span class="navbar-bell-badge">{{ $unreadCount > 9 ? '9+' : $unreadCount }}</span>
+                        @endif
+                    </a>
                     <a href="{{ route('account.edit') }}" class="navbar-user">{{ auth()->user()->name }}</a>
                     <form method="POST" action="{{ route('logout') }}" class="navbar-logout-form">
                         @csrf

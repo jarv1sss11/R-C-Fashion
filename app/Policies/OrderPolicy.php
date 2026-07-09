@@ -36,4 +36,13 @@ class OrderPolicy
     {
         return $user->id === $orderItem->vendor_id;
     }
+
+    /**
+     * Only the buyer who placed the order can confirm they received it —
+     * unlike view(), a vendor with items in the order does not qualify here.
+     */
+    public function confirmReceived(User $user, Order $order): bool
+    {
+        return $user->id === $order->user_id;
+    }
 }

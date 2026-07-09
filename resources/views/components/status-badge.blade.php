@@ -17,6 +17,14 @@
         'paid' => ['label' => 'Paid', 'class' => 'status-badge--success'],
         'shipped' => ['label' => 'Shipped', 'class' => 'status-badge--warning'],
         'delivered' => ['label' => 'Delivered', 'class' => 'status-badge--success'],
+        'failed' => ['label' => 'Failed', 'class' => 'status-badge--danger'],
+        'preparing' => ['label' => 'Preparing', 'class' => 'status-badge--warning'],
+        'rider_assigned' => ['label' => 'Rider Assigned', 'class' => 'status-badge--warning'],
+        'out_for_delivery' => ['label' => 'Out for Delivery', 'class' => 'status-badge--warning'],
+        'assigned' => ['label' => 'Assigned', 'class' => 'status-badge--warning'],
+        'picked_up' => ['label' => 'Picked Up', 'class' => 'status-badge--warning'],
+        'available' => ['label' => 'Available', 'class' => 'status-badge--success'],
+        'unavailable' => ['label' => 'Unavailable', 'class' => 'status-badge--neutral'],
     ];
 
     $variant = $variants[$status] ?? ['label' => ucfirst($status), 'class' => 'status-badge--neutral'];

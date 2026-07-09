@@ -33,6 +33,10 @@
                         <span class="vendor-stat-value">{{ $pendingOrders }}</span>
                         <span class="vendor-stat-label">Pending Orders</span>
                     </a>
+                    <div class="vendor-stat-card">
+                        <span class="vendor-stat-value">{{ $activeDeliveries }}</span>
+                        <span class="vendor-stat-label">Active Deliveries</span>
+                    </div>
                 </div>
 
                 <h2 class="vendor-subheading vendor-subheading--section">Quick Actions</h2>

@@ -161,6 +161,18 @@
     color: var(--color-text-muted);
 }
 
+.admin-summary-card--action {
+    text-decoration: none;
+    cursor: pointer;
+    border-left: 3px solid var(--color-gold, #C8A44D);
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.admin-summary-card--action:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border-left-color: var(--color-black, #111);
+}
+
 /* Notification center */
 .admin-notifications {
     display: flex;

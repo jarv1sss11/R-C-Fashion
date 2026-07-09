@@ -7,6 +7,7 @@ use App\Enums\InteractionType;
 use App\Models\Product;
 use App\Models\RecommendationLog;
 use App\Models\UserInteraction;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
@@ -157,11 +158,18 @@ class RecommendationRepository
     /**
      * "Customers who viewed this also viewed" — a co-occurrence read over
      * the same `user_interactions` table, not a new signal or algorithm.
+     *
+     * Gated the same way as ContentBasedService::similarProducts(): tier 1
+     * is exact product_type + gender/age_group compatible with the anchor;
+     * tier 2 (only when tier 1 has fewer than 3 candidates) broadens to the
+     * product_type's supertype siblings, still gender/age_group-gated. A
+     * thin/empty result is left as-is — co-viewed counts never cross into a
+     * different age_group/gender just to pad the list.
      */
-    public function coViewedProductIds(int $productId, int $limit = 8): array
+    public function coViewedProductIds(Product $product, int $limit = 8): array
     {
         $viewerIds = UserInteraction::query()
-            ->where('product_id', $productId)
+            ->where('product_id', $product->id)
             ->where('interaction_type', InteractionType::Viewed->value)
             ->whereNotNull('user_id')
             ->distinct()
@@ -171,10 +179,36 @@ class RecommendationRepository
             return [];
         }
 
+        $types = $product->product_type ? [$product->product_type] : [];
+        $ids = $this->coViewedCandidates($viewerIds, $product, $types, $limit);
+
+        if (count($ids) < 3) {
+            $siblingTypes = Product::supertypeSiblingTypes($product->product_type);
+
+            if (! empty($siblingTypes)) {
+                $ids = $this->coViewedCandidates($viewerIds, $product, $siblingTypes, $limit);
+            }
+        }
+
+        return $ids;
+    }
+
+    private function coViewedCandidates(Collection $viewerIds, Product $product, array $types, int $limit): array
+    {
+        if (empty($types)) {
+            return [];
+        }
+
         return UserInteraction::query()
             ->whereIn('user_id', $viewerIds)
-            ->where('product_id', '!=', $productId)
+            ->where('product_id', '!=', $product->id)
             ->where('interaction_type', InteractionType::Viewed->value)
+            ->whereHas('product', function (Builder $query) use ($product, $types) {
+                $query->published()
+                    ->whereIn('product_type', $types)
+                    ->genderCompatible($product->gender)
+                    ->ageGroupCompatible($product->age_group);
+            })
             ->selectRaw('product_id, COUNT(*) as total')
             ->groupBy('product_id')
             ->orderByDesc('total')
